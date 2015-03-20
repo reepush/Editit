@@ -1,0 +1,20 @@
+{
+  "name": "Editit",
+  "version": "0.0.0",
+  "authors": [
+    "Grisha Pushkov <grisha@push.org.ru>"
+  ],
+  "license": "WTFPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3.4"
+  }
+}

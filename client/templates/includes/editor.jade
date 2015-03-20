@@ -1,0 +1,9 @@
+tab(ng-controller='editorController' heading='Editor' active="activeTab['editor']")
+  .editor
+    .row
+      .col-xs-9
+        div(ng-model='content' ui-codemirror='cmOptions')
+      .col-xs-3
+        .list-group
+          a.list-group-item(ng-repeat='file in files' ng-click='fileClick(file)') {{ file.name }}
+

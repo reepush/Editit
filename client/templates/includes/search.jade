@@ -1,0 +1,13 @@
+tab(ng-controller='searchController' heading='Search' active="activeTab['search']")
+  .search
+    .search-controls
+      form
+        button.btn.btn-default(ng-click='processQuery()') Search
+        input.form-control(ng-model='query')
+
+    .results
+      .panel.panel-default(ng-repeat='result in results')
+        .panel-heading(ng-click='resultClick(result)') {{ result.filename }}
+        .panel-body
+          div(ng-repeat='line in result.lines') {{ line.number }} {{ line.content }}
+

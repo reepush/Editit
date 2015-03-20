@@ -1,0 +1,71 @@
+@import ../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
+@import ../../node_modules/codemirror/lib/codemirror
+@import ../../node_modules/codemirror/theme/lesser-dark
+
+
+html
+  height: 100%;
+
+body
+  height: 100%;
+  background-color: #E5E5E5;
+  padding: 1px 30px;
+
+a
+  outline: none !important;
+
+component
+  display: block;
+
+.container
+  background-color: #FFF;
+  height: calc(100% - 60px);
+  box-shadow: 0px 5px 15px 0px #AAA;
+  padding: 25px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+.container > [type="tabs"]
+  height: 100%;
+
+.tab-content
+  padding-top: 30px;
+  height: calc(100% - 42px);
+
+.tab-pane
+  height: 100%;
+
+.browser
+  height: 100%;
+
+.browser > .list-group
+  height: calc(100% - 56px);
+  overflow: auto;
+
+.browser .glyphicon
+  font-size: 16px;
+  margin-right: 10px;
+
+.browser .breadcrumb .glyphicon
+  font-size: 14px;
+  margin-right: 0;
+
+.CodeMirror
+  height: 350px;
+  box-shadow: 0 0 1px #262626 !important;
+
+.search
+  height: 100%;
+
+.results
+  height: calc(100% - 54px);
+  margin-top: 20px;
+  overflow-x: hidden;
+.results .panel-heading
+  cursor: pointer;
+
+.search-controls button
+  float: right;
+.search-controls input
+  width: calc(100% - 80px);
+

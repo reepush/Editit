@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Editit
+    meta(charset='utf-8')
+
+    link(rel='stylesheet' href='styles/main.css')
+
+  body(ng-app='app' ng-controller='appController')
+    block content
+
+    script(type='text/ng-template' id='path-list.html')
+      include ../includes/path-list
+
+    script(src='scripts/main.js')
+
