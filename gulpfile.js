@@ -46,7 +46,7 @@ gulp.task('default', ['templates', 'scripts', 'styles', 'scripts'], function() {
 
   nodemon({
     script: 'server.js',
-    watch: 'server.js',
+    watch: ['server.js', 'lib/*'],
   }).on('restart', function() {
       // server does not start up immediately
       setTimeout(function() {
