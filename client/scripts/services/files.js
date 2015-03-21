@@ -1,4 +1,6 @@
 module.exports = function(app) {
+  var _ = require('lodash')
+
   app.factory('files', function() {
     var MAX_FILES = 5
 
@@ -25,8 +27,12 @@ module.exports = function(app) {
           return file
         })
 
-        files.unshift({ name: name, path: path, active: true, line: 1 })
-        files = files.slice(0, MAX_FILES)
+        // find if this file was already opened
+        var opened = _.filter(files, { path: path })[0]
+        if (!opened) {
+          files.unshift({ name: name, path: path, active: true, line: 1 })
+          files = files.slice(0, MAX_FILES)
+        } else opened.active = true
 
         methods.publish()
       },
