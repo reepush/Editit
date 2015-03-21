@@ -8,9 +8,7 @@ module.exports = function(app) {
 
       var active = files.active()
       /* there are no active files at startup */
-      if (!active.curr) {
-        return
-      }
+      if (!active.curr) return
 
       if (active.prev) {
         active.prev.content = $scope.content
