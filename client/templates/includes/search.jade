@@ -9,5 +9,9 @@ tab(ng-controller='searchController' heading='Search' active="activeTab['search'
       .panel.panel-default(ng-repeat='result in results')
         .panel-heading(ng-click='resultClick(result)') {{ result.filename }}
         .panel-body
-          div(ng-repeat='line in result.lines') {{ line.number }} {{ line.content }}
+          .lines
+            .line(ng-repeat='line in result.lines') {{ line }}
+          .content
+            pre
+              code(inner-html='result.content')
 

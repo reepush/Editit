@@ -11,6 +11,7 @@ require('./controllers/browser.js')(app)
 require('./controllers/editor.js')(app)
 
 require('./directives/path-list.js')(app)
+require('./directives/inner-html.js')(app)
 
 require('./services/filesystem.js')(app)
 require('./services/files.js')(app)

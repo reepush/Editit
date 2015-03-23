@@ -1,6 +1,7 @@
 @import ../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
 @import ../../node_modules/codemirror/lib/codemirror
 @import ../../node_modules/codemirror/theme/lesser-dark
+@import ../../node_modules/highlight.js/styles/default
 
 
 html
@@ -85,4 +86,19 @@ component
 
   .row, .col-xs-9, .codemirror-init, .CodeMirror
     height: 100%
+
+// highlighting
+.results
+
+  .lines
+    float: left
+    color: #b2b2b2
+    padding-top: 11px
+    padding-right: 10px
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace
+    font-size: 13px
+    line-height: 1.42857
+
+  .content pre code
+    white-space: pre
 

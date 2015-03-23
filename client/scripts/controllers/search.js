@@ -11,4 +11,5 @@ module.exports = function(app) {
       $scope.$parent.activateTab('editor')
     }
   })
+
 }
