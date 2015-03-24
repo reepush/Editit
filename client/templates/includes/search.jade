@@ -10,8 +10,7 @@ tab(ng-controller='searchController' heading='Search' active="activeTab['search'
         .panel-heading(ng-click='resultClick(result)') {{ result.filename }}
         .panel-body
           table
-            tr(ng-repeat='line in result.lines')
-              td.number {{ line.number }}
-              td.content
-                pre(inner-html='line.content')
+            .numbers
+              .number(ng-repeat='line in result.lines') {{ line.number }}
+            pre.content(highlight='result.content')
 

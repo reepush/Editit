@@ -1,6 +1,7 @@
 @import ../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
 @import ../../node_modules/codemirror/lib/codemirror
 @import ../../node_modules/codemirror/theme/lesser-dark
+@import ../../node_modules/highlight.js/styles/default
 
 html
   height: 100%
@@ -93,17 +94,18 @@ component
     border: 1px solid #CCC
     background-color: #F5F5F5
 
-  pre
+  .content
     margin: 0
     padding: 4px
     border: 0
-
-  td
     padding: 0 10px
 
+  .numbers
+    float: left
+
   .number
-    width: 1%
     color: #b2b2b2
+    padding: 0 10px
     border-right: 1px solid #CCC
 
   .matched
