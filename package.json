@@ -20,6 +20,7 @@
     "codemirror": "^5.0.0",
     "deferred": "^0.7.1",
     "emitter-component": "^1.1.1",
+    "escape-html": "^1.0.1",
     "express": "^4.10.4",
     "grepy": "0.0.1",
     "gulp": "^3.8.11",
