@@ -65,14 +65,16 @@ component
 .results .panel-heading
   cursor: pointer
 
-// TODO: change to panel-primary only when hovering panel-heading, not panel-body
-.results .panel:hover
-  border-color: #337ab7
 
-  .panel-heading
-    color: #fff
-    background-color: #337ab7
+.results
+  .panel.hovered
     border-color: #337ab7
+
+    .panel-heading
+      color: #fff
+      background-color: #337ab7
+      border-color: #337ab7
+
 
 .search-controls button
   float: right
@@ -114,3 +116,20 @@ component
 // lesser-dark redefine
 .cm-s-lesser-dark span.cm-attribute
   color: rgb(89, 158, 255)
+
+// save circle
+.editor
+  .save
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 15px
+    margin: auto
+    width: 7px
+    height: 7px
+    border-radius: 50%
+    background-color: gray
+
+// utility classes
+.u-hidden
+  display: none !important

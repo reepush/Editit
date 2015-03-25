@@ -7,7 +7,8 @@ tab(ng-controller='searchController' heading='Search' active="activeTab['search'
 
     .results
       .panel.panel-default(ng-repeat='result in results')
-        .panel-heading(ng-click='resultClick(result)') {{ result.filename }}
+        .panel-heading(when-hovered='{ "selector": "parent", "class": "hovered" }'
+                       ng-click='resultClick(result)') {{ result.filename }}
         .panel-body
           table
             .numbers
