@@ -2,9 +2,15 @@ tab(ng-controller='editorController' heading='Editor' active="activeTab['editor'
   .editor
     .row
       .col-xs-9
-        .codemirror-init(ng-model='content' ui-codemirror='cmOptions')
+        .codemirror-init(ng-repeat='editor in editors'
+                         ng-model='editor.content' 
+                         ng-class="{ 'u-hidden': !editor.active }"
+                         ui-codemirror='editor.options')
       .col-xs-3
         .list-group
-          a.list-group-item(ng-repeat='file in files' ng-click='fileClick(file)'
-                            ng-class='{ active: file.active }') {{ file.name }}
+          a.list-group-item(ng-repeat='editor in editors'
+                            ng-class='{ active: editor.active }'
+                            ng-click='activateEditor(editor)')
+            span {{ editor.filename }}
+            span.save(ng-if='!editor.saved' ng-click='save(editor)')
 

@@ -1,66 +1,36 @@
 module.exports = function(app) {
-  app.controller('editorController', function($scope, filesystem, files) {
+  app.controller('editorController', function($scope, filesystem, editors) {
     var path = require('path')
+    var _    = require('lodash')
     var editor
     $scope.content = ''
 
-    files.subscribe(function(list) {
-      $scope.files = list
+    editors.subscribe(function(list) {
+      $scope.editors = list
 
-      var active = files.active()
+      var active = editors.active()
       /* there are no active files at startup */
-      if (!active.curr) return
+      if (!active) return
 
-      // set mode for highlighting
-      var ext = path.extname(active.curr.name).slice(1)
-      // TODO: find extension to MIME thing
-      // TODO: autoload modes
-      var ext2mode = {
-        'js'  : 'text/javascript',
-        'html': 'text/html',
-        'sh'  : 'text/x-sh',
-        'css' : 'text/css',
-        'jade': 'text/x-jade',
-        'json': 'application/json',
-      }
-      var mode = ext2mode[ext]
-      console.log(mode)
-      $scope.cmOptions.mode = mode
-
-      if (active.prev) {
-        active.prev.content = $scope.content
-        filesystem.write(active.prev.path, active.prev.content)
-      }
-
-      if (!active.curr.content) {
-        filesystem.read(active.curr.path,
-          function(data) {
-            active.curr.content = data.content
-            $scope.content = data.content
-            // editor.scrollToLine(20)
-          }
-        )
-      } else {
-        $scope.content = active.curr.content
-        // editor.scrollToLine(20)
+      if (!active.content) {
+        console.log('filesystem.read')
+        filesystem.read(active.filepath, function(data) {
+          active.content = data.content
+        })
       }
     })
 
-    $scope.fileClick = function(file) {
-      files.activate(file)
-      // editor.scrollToLine(20)
+    $scope.activateEditor = function(editor) {
+      $scope.editors.forEach(function(editor) {
+        editor.active = false
+      })
+      editor.active = true
     }
 
-    $scope.cmOptions = {
-       lineNumbers: true,
-       theme: 'lesser-dark',
-       onLoad: function(cm) {
-         editor = cm
-         editor.scrollToLine = function(line) {
-          var coords = this.charCoords({line: line-1, ch: 0}, "local") 
-          this.scrollTo(null, coords.top) 
-         }
-       }
+    $scope.save = function(editor) {
+      editor.saved = true
     }
+
   })
 }
+

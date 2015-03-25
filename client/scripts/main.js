@@ -12,9 +12,10 @@ require('./controllers/editor.js')(app)
 
 require('./directives/path-list.js')(app)
 require('./directives/highlight.js')(app)
+require('./directives/when-hovered.js')(app)
 
 require('./services/filesystem.js')(app)
-require('./services/files.js')(app)
+require('./services/editors.js')(app)
 
 require('../../node_modules/codemirror/mode/xml/xml.js')
 require('../../node_modules/codemirror/mode/javascript/javascript.js')

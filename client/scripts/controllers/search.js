@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('searchController', function($scope, filesystem, files) {
+  app.controller('searchController', function($scope, filesystem, editors) {
     $scope.processQuery = function() {
       filesystem.search($scope.query, function(results) {
         $scope.results = results
@@ -7,7 +7,7 @@ module.exports = function(app) {
     }
 
     $scope.resultClick = function(result) {
-      files.add(result.filename, result.path)
+      editors.add(result.filename, result.path)
       $scope.$parent.activateTab('editor')
     }
   })

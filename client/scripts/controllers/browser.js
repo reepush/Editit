@@ -1,14 +1,14 @@
 module.exports = function(app) {
   var mPath = require('path')
 
-  app.controller('browserController', function($scope, $http, filesystem, files) {
+  app.controller('browserController', function($scope, $http, filesystem, editors) {
     $scope.path = '/'
 
     $scope.nodeClick = function(node) {
       if (!node.isFile) {
         $scope.path = mPath.join($scope.path, node.name)
       } else {
-        files.add(node.name, node.path)
+        editors.add(node.name, node.path)
         $scope.$parent.activateTab('editor')
       }
     }
