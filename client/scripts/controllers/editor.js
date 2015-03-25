@@ -1,5 +1,6 @@
 module.exports = function(app) {
   app.controller('editorController', function($scope, filesystem, files) {
+    var path = require('path')
     var editor
     $scope.content = ''
 
@@ -9,6 +10,22 @@ module.exports = function(app) {
       var active = files.active()
       /* there are no active files at startup */
       if (!active.curr) return
+
+      // set mode for highlighting
+      var ext = path.extname(active.curr.name).slice(1)
+      // TODO: find extension to MIME thing
+      // TODO: autoload modes
+      var ext2mode = {
+        'js'  : 'text/javascript',
+        'html': 'text/html',
+        'sh'  : 'text/x-sh',
+        'css' : 'text/css',
+        'jade': 'text/x-jade',
+        'json': 'application/json',
+      }
+      var mode = ext2mode[ext]
+      console.log(mode)
+      $scope.cmOptions.mode = mode
 
       if (active.prev) {
         active.prev.content = $scope.content
@@ -37,7 +54,6 @@ module.exports = function(app) {
     $scope.cmOptions = {
        lineNumbers: true,
        theme: 'lesser-dark',
-       mode: 'javascript',
        onLoad: function(cm) {
          editor = cm
          editor.scrollToLine = function(line) {
