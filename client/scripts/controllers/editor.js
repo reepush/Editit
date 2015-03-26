@@ -13,7 +13,6 @@ module.exports = function(app) {
       if (!active) return
 
       if (!active.content) {
-        console.log('filesystem.read')
         filesystem.read(active.filepath, function(data) {
           active.content = data.content
         })

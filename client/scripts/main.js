@@ -17,9 +17,6 @@ require('./directives/when-hovered.js')(app)
 require('./services/filesystem.js')(app)
 require('./services/editors.js')(app)
 
-require('../../node_modules/codemirror/mode/xml/xml.js')
-require('../../node_modules/codemirror/mode/javascript/javascript.js')
-require('../../node_modules/codemirror/mode/shell/shell.js')
-require('../../node_modules/codemirror/mode/css/css.js')
-require('../../node_modules/codemirror/mode/jade/jade.js')
+require('../../node_modules/codemirror/mode/meta.js')
+require('../../node_modules/codemirror/addon/mode/loadmode.js')
 

@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var _ = require('lodash')
-  var mime = require('mime')
-  mime.define({ 'text/x-jade': ['jade'] })
+  var codemirror = require('codemirror')
+  codemirror.modeURL = 'mode/%N/%N.js'
 
   app.factory('editors', function() {
     var MAX_FILES = 5
@@ -32,7 +32,11 @@ module.exports = function(app) {
         var opened = _.filter(editors, { filepath: path })[0]
         if (!opened) {
 
-          console.log(mime.lookup(name))
+          // load mode
+          var mode = codemirror.findModeByFileName(path)
+          if (mode.name == 'HTML') mode.name = 'XML'
+          console.log(mode)
+
           var editor = {
             filename: name,
             filepath: path,
@@ -41,13 +45,15 @@ module.exports = function(app) {
             options: {
               lineNumbers: true,
               theme: 'lesser-dark',
-              // TODO: autoload modes
-              mode: mime.lookup(name),
+              mode: mode.mime,
               onLoad: function(cm) {
+                codemirror.autoLoadMode(cm, mode)
+
                 var init = true
                 cm.on('change', function() {
                   if (!init || (init = false))
                     editor.saved = false
+                  cm.setOption('mode', cm.getOption('mode'))
                 })}
             }
           }

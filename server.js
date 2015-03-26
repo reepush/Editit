@@ -10,9 +10,11 @@ var app = express();
 var DIR = Path.join(process.cwd(), 'test')
 process.chdir('test')
 
-app.use('/', express.static(Path.join(__dirname, 'client/public')));
-app.use('/fonts/bootstrap/', express.static(Path.join(__dirname, 'bower_components/bootstrap-sass/assets/fonts/bootstrap/')))
 app.use(bodyParser.json());
+
+app.use('/', express.static(Path.join(__dirname, 'client/public')));
+app.use('/fonts/bootstrap', express.static(Path.join(__dirname, 'bower_components/bootstrap-sass/assets/fonts/bootstrap')))
+app.use('/mode', express.static(Path.join(__dirname, 'node_modules/codemirror/mode')))
 
 app.post( '/list', routes.list)
 app.post( '/read', routes.read)
