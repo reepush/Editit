@@ -8,8 +8,28 @@ var gulp	     = require('gulp'),
     browserify = require('browserify'),
     watchify   = require('watchify'),
     source     = require('vinyl-source-stream'),
-    nodemon    = require('nodemon')
+    nodemon    = require('nodemon'),
+    fs         = require('fs')
 
+gulp.task('scssify', function() {
+  var files = [
+    'node_modules/bootstrap/dist/css/bootstrap.css',
+    'node_modules/codemirror/lib/codemirror.css',
+    'node_modules/codemirror/theme/lesser-dark.css',
+    'node_modules/highlight.js/styles/default.css'
+  ]
+
+  files.forEach(function(file) {
+    var data = fs.readFileSync(file)
+    var scssed = scssify(file)
+    fs.writeFileSync(scssed, data)
+  })
+
+  function scssify(file) {
+    var ext = path.extname(file)
+    return file.replace(ext, '.scss')
+  }
+})
 
 gulp.task('styles', function() {
 	return gulp.src('client/styles/main.sass')
@@ -38,6 +58,8 @@ gulp.task('templates', function() {
 		.pipe(gulp.dest('client/public'))
 		.pipe(bs.reload({ stream: true }))
 })
+
+gulp.task('init', ['scssify'])
 
 gulp.task('default', ['templates', 'scripts', 'styles', 'scripts'], function() {
 	gulp.watch('client/templates/**', ['templates'])
