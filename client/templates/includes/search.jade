@@ -13,5 +13,6 @@ tab(ng-controller='searchController' heading='Search' active="activeTab['search'
           table
             .numbers
               .number(ng-repeat='line in result.lines') {{ line.number }}
-            pre.content(highlight='result.content')
+            pre
+              code.content(highlight='result.content')
 
