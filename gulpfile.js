@@ -9,7 +9,8 @@ var gulp	     = require('gulp'),
     watchify   = require('watchify'),
     source     = require('vinyl-source-stream'),
     nodemon    = require('nodemon'),
-    fs         = require('fs')
+    fs         = require('fs'),
+    gutil      = require('gulp-util')
 
 gulp.task('scssify', function() {
   var files = [
@@ -33,22 +34,33 @@ gulp.task('scssify', function() {
 
 gulp.task('styles', function() {
 	return gulp.src('client/styles/main.sass')
-		.pipe(plumber())
-		.pipe(sass({ indentedSyntax: true }))
+		.pipe(sass({ indentedSyntax: true, errLogToConsole: true }))
     .pipe(prefixer())
 		.pipe(gulp.dest('client/public/styles'))
 		.pipe(bs.reload({ stream: true }))
 })
 
-gulp.task('scripts', function scripts() {
-  scripts.bundler = scripts.bundler
-    ? scripts.bundler
-    : scripts.bundler = watchify(browserify('./client/scripts/main.js'))
+gulp.task('scripts', function() {
+  var bundler = watchify(browserify(watchify.args))
+                  .add('./client/scripts/main.js')
+  bundler.on('update', function() {
+    bundle()
+  })
 
-  return scripts.bundler.bundle()
+  bundler.on('time', function(time) {
+    gutil.log('Finished', '\'' + gutil.colors.cyan('scripts') + '\'',
+      'after', gutil.colors.magenta(time + ' ms'))
+  })
+
+  var bundle = (function bundle() {
+    plumber()
+    .pipe(bundler.bundle())
     .pipe(source('main.js'))
     .pipe(gulp.dest('client/public/scripts'))
     .pipe(bs.reload({ stream: true }))
+
+    return bundle
+  })()
 })
 
 gulp.task('templates', function() {
@@ -63,7 +75,6 @@ gulp.task('init', ['scssify'])
 
 gulp.task('default', ['templates', 'scripts', 'styles', 'scripts'], function() {
 	gulp.watch('client/templates/**', ['templates'])
-	gulp.watch('client/scripts/**', ['scripts'])
 	gulp.watch('client/styles/**', ['styles'])
 
   nodemon({
