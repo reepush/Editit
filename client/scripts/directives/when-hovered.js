@@ -2,7 +2,6 @@ module.exports = function(app) {
 
   app.directive('whenHovered', function() {
     return function(scope, element, attr) {
-      console.log(attr.whenHovered)
       var options = JSON.parse(attr.whenHovered)
 
       var target
