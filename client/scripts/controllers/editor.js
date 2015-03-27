@@ -2,8 +2,14 @@ module.exports = function(app) {
   app.controller('editorController', function($scope, filesystem, editors) {
     var path = require('path')
     var _    = require('lodash')
+    var codemirror = require('codemirror')
     var editor
     $scope.content = ''
+
+    codemirror.commands.save = function(cm) {
+      var editor = editors.active()
+      $scope.save(editor)
+    }
 
     editors.subscribe(function(list) {
       $scope.editors = list
@@ -27,7 +33,9 @@ module.exports = function(app) {
     }
 
     $scope.save = function(editor) {
-      editor.saved = true
+      filesystem.write(editor.filepath, editor.content, function() {
+        editor.saved = true
+      })
     }
 
   })

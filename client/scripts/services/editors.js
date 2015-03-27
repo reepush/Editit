@@ -35,7 +35,6 @@ module.exports = function(app) {
           // load mode
           var mode = codemirror.findModeByFileName(path)
           if (mode.name == 'HTML') mode.name = 'XML'
-          console.log(mode)
 
           var editor = {
             filename: name,
@@ -54,7 +53,8 @@ module.exports = function(app) {
                   if (!init || (init = false))
                     editor.saved = false
                   cm.setOption('mode', cm.getOption('mode'))
-                })}
+                })
+              }
             }
           }
 

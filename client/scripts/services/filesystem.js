@@ -16,10 +16,10 @@ module.exports = function(app) {
           }
         )
       },
-      write: function(path, data) {
+      write: function(path, data, cb) {
         $http.post('/write', { path: path, data: data })
           .success(function() {
-            console.log('data were written')
+            cb()
           }
         )
       },
