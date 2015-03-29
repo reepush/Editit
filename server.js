@@ -23,7 +23,8 @@ app.post( '/read', routes.read)
 app.post( '/write', routes.write)
 app.post( '/search', routes.search)
 
-app.listen(3001, function() {
-  console.log('Ok! Open http://localhost:3001/')
+var port = process.env.PORT || 3001
+app.listen(port, function() {
+  console.log('Ok! Open http://localhost:' + port + '/')
 });
 
