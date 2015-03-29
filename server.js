@@ -1,12 +1,17 @@
 // TODO: make some modules lazy (class / function)
+var Path       = require('path')
 var minimist   = require('minimist')
 var args = minimist(process.argv.slice(2))
+
+// detect heroku
+if (process.env.DYNO)
+  args.dir = Path.join(process.cwd(), 'test')
+
 var DIR = args.dir || process.cwd()
 process.chdir(DIR)
 
 var express     = require('express'),
     bodyParser  = require('body-parser'),
-    Path        = require('path'),
     routes      = require('./lib/routes')
 
 var app = express();
