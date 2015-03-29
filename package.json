@@ -1,14 +1,25 @@
 {
-  "name": "Editit",
-  "version": "0.0.0",
+  "name": "editit",
+  "version": "0.0.2",
   "description": "Edit your local files in browser",
   "main": "server.js",
   "scripts": {
     "build": "browserify -d client/script.js -o client/bundle.js",
     "default": "nodemon -i client/bundle.js -x 'npm run build && npm run start'"
   },
+  "keywords": [
+    "edit",
+    "grep",
+    "search",
+    "local files",
+    "fs"
+  ],
   "author": "Grisha Pushkov",
   "license": "WTFPL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4evergreen/editit.git"
+  },
   "devDependencies": {
     "angular": "^1.3.15",
     "angular-bootstrap": "^0.12.0",
