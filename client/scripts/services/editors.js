@@ -69,15 +69,6 @@ module.exports = function(app) {
 
         return active[0]
       },
-      activate: function(ile) {
-        editors.map(function(editor) {
-          editor.active = false
-          return editor
-        })
-
-        editor.active = true
-        methods.publish()
-      }
     }
 
     return methods
