@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/', express.static(Path.join(__dirname, 'client/public')));
 app.use('/fonts', express.static(Path.join(__dirname, 'node_modules/bootstrap/dist/fonts')))
 app.use('/mode', express.static(Path.join(__dirname, 'node_modules/codemirror/mode')))
+app.use('/*', express.static(Path.join(__dirname, 'client/public/index.html')))
 
 app.post( '/list', routes.list)
 app.post( '/read', routes.read)
