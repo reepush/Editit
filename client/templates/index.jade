@@ -2,8 +2,19 @@ extends extends/layout
 
 block content
   .container
-    tabset(justified='true' type='tabs')
-      include includes/search
-      include includes/browser
-      include includes/editor
+    ul.nav.nav-tabs.nav-justified
+      li(ng-class="{ active: activeTab['search'] }")
+        a(ng-click="activateTab('search')") Search
+      li(ng-class="{ active: activeTab['browser'] }")
+        a(ng-click="activateTab('browser')") Browser
+      li(ng-class="{ active: activeTab['editor'] }")
+        a(ng-click="activateTab('editor')") Editor
+
+    .tabs
+      .tab(ng-class="{ 'u-hidden': !activeTab['search'] }")
+        include includes/search
+      .tab(ng-class="{ 'u-hidden': !activeTab['browser'] }")
+        include includes/browser
+      .tab(ng-class="{ 'u-hidden': !activeTab['editor'] }")
+        include includes/editor
 

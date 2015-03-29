@@ -1,9 +1,14 @@
 require('angular')
 global.CodeMirror = require('codemirror')
 require('angular-ui-codemirror')
-require('angular-bootstrap')
 
-var app = angular.module('app', ['ui.codemirror', 'ui.bootstrap'])
+var app = angular.module('app', ['ui.codemirror'])
+app.config(function($locationProvider) {
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  })
+})
 
 require('./controllers/main.js')(app)
 require('./controllers/search.js')(app)

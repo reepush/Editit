@@ -18,6 +18,7 @@ module.exports = function(app) {
       },
       subscribe: function(observer) {
         observers.push(observer)
+        observer(editors)
       },
       add: function(name, path) {
         editors.map(function(editor) {

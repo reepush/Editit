@@ -1,10 +1,10 @@
-tab(ng-controller='browserController' heading='Browser' active="activeTab['browser']")
-  .browser
-    component(path-list path='path')
-    .list-group
-      a.list-group-item(ng-if='!rootDir' ng-click="nodeClick({ name: '..' })") ..
-      a.list-group-item(ng-repeat="node in nodes | orderBy: 'isFile'" ng-click='nodeClick(node)')
-        span.glyphicon.glyphicon-file(ng-if='node.isFile')
-        span.glyphicon.glyphicon-folder-open(ng-if='node.isDir')
-        span {{ node.name }}
+// tab(ng-controller='browserController' heading='Browser' active="activeTab['browser']")
+.tab.browser(ng-controller='browserController')
+  component(path-list path='path')
+  .list-group
+    a.list-group-item(ng-if='!rootDir' ng-click="nodeClick({ name: '..' })") ..
+    a.list-group-item(ng-repeat="node in nodes | orderBy: 'isFile'" ng-click='nodeClick(node)')
+      span.glyphicon.glyphicon-file(ng-if='node.isFile')
+      span.glyphicon.glyphicon-folder-open(ng-if='node.isDir')
+      span {{ node.name }}
 

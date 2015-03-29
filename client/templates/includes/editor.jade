@@ -1,19 +1,19 @@
-tab(ng-controller='editorController'
-    heading='Editor'
-    active="activeTab['editor']"
-    disabled='editorDisabled')
-  .editor
-    .row
-      .col-xs-9
-        .codemirror-init(ng-repeat='editor in editors'
-                         ng-model='editor.content' 
-                         ng-class="{ 'u-hidden': !editor.active }"
-                         ui-codemirror='editor.options')
-      .col-xs-3
-        .list-group
-          a.list-group-item(ng-repeat='editor in editors'
-                            ng-class='{ active: editor.active }'
-                            ng-click='activateEditor(editor)')
-            span {{ editor.filename }}
-            span.save(ng-if='!editor.saved' ng-click='save(editor)')
+// tab(ng-controller='editorController'
+    // heading='Editor'
+    // active="activeTab['editor']"
+    // disabled='editorDisabled')
+.tab.editor(ng-controller='editorController')
+  .row
+    .col-xs-9
+      .codemirror-init(ng-repeat='editor in editors'
+                       ng-model='editor.content' 
+                       ng-class="{ 'u-hidden': !editor.active }"
+                       ui-codemirror='editor.options')
+    .col-xs-3
+      .list-group
+        a.list-group-item(ng-repeat='editor in editors'
+                          ng-class='{ active: editor.active }'
+                          ng-click='activateEditor(editor)')
+          span {{ editor.filename }}
+          span.save(ng-if='!editor.saved' ng-click='save(editor)')
 

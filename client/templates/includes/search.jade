@@ -1,20 +1,20 @@
-tab(ng-controller='searchController' heading='Search' active="activeTab['search']")
-  .search
-    .search-controls
-      form
-        button.btn.btn-default(ng-click='processQuery()') Search
-        input.form-control(ng-model='query')
+// tab(ng-controller='searchController' heading='Search' active="activeTab['search']")
+.tab.search(ng-controller='searchController')
+  .search-controls
+    form
+      button.btn.btn-default(ng-click='processQuery()') Search
+      input.form-control(ng-model='query')
 
-    .results
-      .no-results(ng-if='results.length == 0') No files were found :(
+  .results
+    .no-results(ng-if='results.length == 0') No files were found :(
 
-      .panel.panel-default(ng-repeat='result in results')
-        .panel-heading(when-hovered='{ "selector": "parent", "class": "hovered" }'
-                       ng-click='resultClick(result)') {{ result.filename }}
-        .panel-body
-          table
-            .numbers
-              .number(ng-repeat='line in result.lines') {{ line.number }}
-            pre
-              code.content(highlight='result.content')
+    .panel.panel-default(ng-repeat='result in results')
+      .panel-heading(when-hovered='{ "selector": "parent", "class": "hovered" }'
+                     ng-click='resultClick(result)') {{ result.filename }}
+      .panel-body
+        table
+          .numbers
+            .number(ng-repeat='line in result.lines') {{ line.number }}
+          pre
+            code.content(highlight='result.content')
 
