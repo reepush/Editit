@@ -36,6 +36,7 @@
     "escape-html": "^1.0.1",
     "express": "^4.10.4",
     "grepy": "^0.1.0",
-    "lodash": "^3.5.0"
+    "lodash": "^3.5.0",
+    "minimist": "^1.1.1"
   }
 }

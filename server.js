@@ -1,14 +1,15 @@
+// TODO: make some modules lazy (class / function)
+var minimist   = require('minimist')
+var args = minimist(process.argv.slice(2))
+var DIR = args.cwd || process.cwd()
+process.chdir(DIR)
+
 var express     = require('express'),
     bodyParser  = require('body-parser'),
-    http        = require('http'),
     Path        = require('path'),
-    Grep        = require('grep1'),
-    filesystem  = require('./lib/filesystem'),
     routes      = require('./lib/routes')
 
 var app = express();
-var DIR = Path.join(process.cwd(), 'test')
-process.chdir('test')
 
 app.use(bodyParser.json());
 
