@@ -16,6 +16,7 @@
   ],
   "author": "Grisha Pushkov",
   "license": "WTFPL",
+  "bin": "bin/editit.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/4evergreen/editit.git"
