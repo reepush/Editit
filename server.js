@@ -1,7 +1,7 @@
 // TODO: make some modules lazy (class / function)
 var minimist   = require('minimist')
 var args = minimist(process.argv.slice(2))
-var DIR = args.cwd || process.cwd()
+var DIR = args.dir || process.cwd()
 process.chdir(DIR)
 
 var express     = require('express'),
