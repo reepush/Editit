@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('appController', function($scope, editors, $location, $rootScope) {
+  app.controller('appController', function($scope, $location, $rootScope) {
 
     $scope.$watch(function() {
       return $location.path()
@@ -14,7 +14,7 @@ module.exports = function(app) {
     }
 
     $scope.editorDisabled = true
-    editors.subscribe(function() {
+    $rootScope.$on('editor:add', function() {
       $scope.editorDisabled = false
     })
   })

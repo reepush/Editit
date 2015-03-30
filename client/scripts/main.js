@@ -20,7 +20,6 @@ require('./directives/highlight.js')(app)
 require('./directives/when-hovered.js')(app)
 
 require('./services/filesystem.js')(app)
-require('./services/editors.js')(app)
 
 require('../../node_modules/codemirror/mode/meta.js')
 require('../../node_modules/codemirror/addon/mode/loadmode.js')
