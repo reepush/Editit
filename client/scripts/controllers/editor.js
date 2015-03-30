@@ -30,7 +30,6 @@ module.exports = function(app) {
             theme: 'lesser-dark',
             mode: mode.mime,
             onLoad: function(cm) {
-              console.log(mode)
               codemirror.autoLoadMode(cm, mode)
 
               var init = true

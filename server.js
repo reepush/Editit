@@ -10,12 +10,14 @@ if (process.env.DYNO)
 var DIR = args.dir || process.cwd()
 process.chdir(DIR)
 
-var express     = require('express'),
-    bodyParser  = require('body-parser'),
-    routes      = require('./lib/routes')
+var express             = require('express'),
+    bodyParser          = require('body-parser'),
+    routes              = require('./lib/routes'),
+    expressUncapitalize = require('express-uncapitalize')
 
 var app = express();
 
+app.use(expressUncapitalize())
 app.use(bodyParser.json());
 
 app.use('/', express.static(Path.join(__dirname, 'client/public')));
