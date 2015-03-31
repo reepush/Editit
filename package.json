@@ -1,6 +1,6 @@
 {
   "name": "editit",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Edit your local files in browser",
   "main": "server.js",
   "scripts": {
