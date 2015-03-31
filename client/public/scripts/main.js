@@ -29,8 +29,9 @@ require('../../node_modules/codemirror/addon/mode/loadmode.js')
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../../node_modules/codemirror/addon/mode/loadmode.js":15,"../../node_modules/codemirror/mode/meta.js":17,"./controllers/browser.js":2,"./controllers/editor.js":3,"./controllers/main.js":4,"./controllers/search.js":5,"./directives/highlight.js":6,"./directives/path-list.js":7,"./directives/when-hovered.js":8,"./services/filesystem.js":9,"angular":12,"angular-ui-codemirror":10,"codemirror":16}],2:[function(require,module,exports){
+var mPath = require('path')
+
 module.exports = function(app) {
-  var mPath = require('path')
 
   app.controller('browserController', function($scope, filesystem, $rootScope) {
     $scope.path = '/'
@@ -58,11 +59,12 @@ module.exports = function(app) {
 }
 
 },{"path":13}],3:[function(require,module,exports){
+var path       = require('path'),
+    _          = require('lodash'),
+    codemirror = require('codemirror')
+
 module.exports = function(app) {
   app.controller('editorController', function($scope, filesystem, $rootScope) {
-    var path = require('path')
-    var _    = require('lodash')
-    var codemirror = require('codemirror')
     codemirror.modeURL = 'mode/%N/%N.js'
     $scope.editors = []
 
@@ -175,15 +177,13 @@ module.exports = function(app) {
 }
 
 },{}],6:[function(require,module,exports){
+var hljs = require('highlight.js')
+
 module.exports = function(app) {
-  var hljs = require('highlight.js')
 
   app.directive('highlight', function() {
     return function(scope, element, attr) {
       element.html(scope.$eval(attr.highlight))
-
-      // set file type
-      hljs.configure({ languages: ['html'] })
 
       hljs.highlightBlock(element[0])
     }
@@ -192,8 +192,9 @@ module.exports = function(app) {
 
 
 },{"highlight.js":19}],7:[function(require,module,exports){
+var mPath = require('path')
+
 module.exports = function(app) {
-  var mPath = require('path')
 
   app.directive('pathList', function() {
     return {

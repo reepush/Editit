@@ -1,8 +1,9 @@
+var path       = require('path'),
+    _          = require('lodash'),
+    codemirror = require('codemirror')
+
 module.exports = function(app) {
   app.controller('editorController', function($scope, filesystem, $rootScope) {
-    var path = require('path')
-    var _    = require('lodash')
-    var codemirror = require('codemirror')
     codemirror.modeURL = 'mode/%N/%N.js'
     $scope.editors = []
 

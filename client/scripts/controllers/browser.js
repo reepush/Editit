@@ -1,5 +1,6 @@
+var mPath = require('path')
+
 module.exports = function(app) {
-  var mPath = require('path')
 
   app.controller('browserController', function($scope, filesystem, $rootScope) {
     $scope.path = '/'
