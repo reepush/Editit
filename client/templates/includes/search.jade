@@ -5,15 +5,16 @@
       input.form-control(ng-model='query')
 
   .results
-    .no-results(ng-if='results.length == 0') No files were found :(
+    .results-scroll
+      .no-results(ng-if='results.length == 0') No files were found :(
 
-    .panel.panel-default(ng-repeat='result in results')
-      .panel-heading(when-hovered='{ "selector": "parent", "class": "hovered" }'
-                     ng-click='resultClick(result)') {{ result.filename }}
-      .panel-body
-        table
-          .numbers
-            .number(ng-repeat='line in result.lines') {{ line.number }}
-          pre
-            code.content(highlight='result.content')
+      .panel.panel-default(ng-repeat='result in results')
+        .panel-heading(when-hovered='{ "selector": "parent", "class": "hovered" }'
+                       ng-click='resultClick(result)') {{ result.filename }}
+        .panel-body
+          table
+            .numbers
+              .number(ng-repeat='line in result.lines') {{ line.number }}
+            pre
+              code.content(highlight='result.content')
 
