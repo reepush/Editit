@@ -7,7 +7,7 @@ block content
         a(ng-click="activateTab('search')") Search
       li(ng-class="{ active: activeTab['browser'] }")
         a(ng-click="activateTab('browser')") Browser
-      li(ng-class="{ active: activeTab['editor'] }")
+      li(ng-class="{ active: activeTab['editor'], disabled: editorDisabled }")
         a(ng-click="activateTab('editor')") Editor
 
     .tabs

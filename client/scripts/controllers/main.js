@@ -1,6 +1,12 @@
 module.exports = function(app) {
   app.controller('appController', function($scope, $location, $rootScope) {
 
+    // default tab is browser
+    // editor is disabled at startup
+    // so we are changing editor to browser
+    if ($location.path() == '/' || $location.path() == '/editor')
+      $location.path('browser')
+
     $scope.$watch(function() {
       return $location.path()
     }, function() {
@@ -8,6 +14,9 @@ module.exports = function(app) {
     })
 
     $scope.activateTab = function(tab) {
+      if (tab == 'editor' && $scope.editorDisabled)
+        return
+
       $scope.activeTab = {}
       $scope.activeTab[tab] = true
       $location.path(tab)

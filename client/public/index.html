@@ -10,7 +10,7 @@
       <ul class="nav nav-tabs nav-justified">
         <li ng-class="{ active: activeTab['search'] }"><a ng-click="activateTab('search')">Search</a></li>
         <li ng-class="{ active: activeTab['browser'] }"><a ng-click="activateTab('browser')">Browser</a></li>
-        <li ng-class="{ active: activeTab['editor'] }"><a ng-click="activateTab('editor')">Editor</a></li>
+        <li ng-class="{ active: activeTab['editor'], disabled: editorDisabled }"><a ng-click="activateTab('editor')">Editor</a></li>
       </ul>
       <div class="tabs">
         <div ng-class="{ 'u-hidden': !activeTab['search'] }" class="tab">
