@@ -10,7 +10,11 @@ var gulp	     = require('gulp'),
     source     = require('vinyl-source-stream'),
     nodemon    = require('nodemon'),
     fs         = require('fs'),
-    gutil      = require('gulp-util')
+    gutil      = require('gulp-util'),
+    bump       = require('gulp-bump'),
+    git        = require('gift'),
+    exec       = require('child_process').exec
+
 
 gulp.task('scssify', function() {
   var files = [
@@ -41,8 +45,18 @@ gulp.task('styles', function() {
 })
 
 gulp.task('scripts', function() {
-  var bundler = watchify(browserify(watchify.args))
+  var watchy = (function decorate(watchify) {
+    // do not watch for build
+    var task = process.argv[2] 
+    if (task == 'build' || task == 'bump' || task == 'publish')
+      return function(browserify) { return browserify }
+    else
+      return watchify
+  })(watchify)
+
+  var bundler = watchy(browserify(watchify.args))
                   .add('./client/scripts/main.js')
+
   bundler.on('update', function() {
     bundle()
   })
@@ -52,15 +66,16 @@ gulp.task('scripts', function() {
       'after', gutil.colors.magenta(time + ' ms'))
   })
 
-  var bundle = (function bundle() {
-    plumber()
+  // bundle first time
+  bundle()
+
+  function bundle() {
+    return plumber()
     .pipe(bundler.bundle())
     .pipe(source('main.js'))
     .pipe(gulp.dest('client/public/scripts'))
     .pipe(bs.reload({ stream: true }))
-
-    return bundle
-  })()
+  }
 })
 
 gulp.task('templates', function() {
@@ -73,7 +88,7 @@ gulp.task('templates', function() {
 
 gulp.task('init', ['scssify'])
 
-gulp.task('default', ['templates', 'scripts', 'styles', 'scripts'], function() {
+gulp.task('default', ['templates', 'scripts', 'styles'], function() {
 	gulp.watch('client/templates/**', ['templates'])
 	gulp.watch('client/styles/**', ['styles'])
 
@@ -94,5 +109,26 @@ gulp.task('default', ['templates', 'scripts', 'styles', 'scripts'], function() {
        online: false,
        ui: false
   })
+})
+
+gulp.task('build', ['templates', 'scripts', 'styles'])
+
+gulp.task('bump', function() {
+  return gulp.src('package.json')
+    .pipe(bump())
+    .pipe(gulp.dest('./'))
+})
+
+gulp.task('publish', ['build', 'bump'], function() {
+  var version = require('./package.json').version
+
+  var repo = git(process.cwd())
+  repo.add('.', function() {
+    repo.commit(version + ' version', function() {})
+    exec('npm publish', function() {
+      console.log(version + ' version was published!')
+    })
+  })
+
 })
 
