@@ -13,7 +13,9 @@ var gulp	     = require('gulp'),
     gutil      = require('gulp-util'),
     bump       = require('gulp-bump'),
     git        = require('gift'),
-    exec       = require('child_process').exec
+    exec       = require('child_process').exec,
+    sequence   = require('gulp-sequence'),
+    through    = require('through2')
 
 
 gulp.task('scssify', function() {
@@ -67,14 +69,14 @@ gulp.task('scripts', function() {
   })
 
   // bundle first time
-  bundle()
+  return bundle()
 
   function bundle() {
     return plumber()
-    .pipe(bundler.bundle())
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('client/public/scripts'))
-    .pipe(bs.reload({ stream: true }))
+      .pipe(bundler.bundle())
+      .pipe(source('main.js'))
+      .pipe(gulp.dest('client/public/scripts'))
+      .pipe(bs.reload({ stream: true }))
   }
 })
 
@@ -117,18 +119,57 @@ gulp.task('bump', function() {
   return gulp.src('package.json')
     .pipe(bump())
     .pipe(gulp.dest('./'))
+    .pipe(through.obj(commit))
+
+  function commit(data, enc, cb) {
+    var version = require('./package.json').version
+    var repo = git(process.cwd())
+
+    repo.add('./package.json', function() {
+      repo.commit(version + ' version', function() {
+        cb(null, data)
+      })
+    })
+  }
 })
 
-gulp.task('publish', ['build', 'bump'], function() {
-  var version = require('./package.json').version
-
+gulp.task('move-to-build', function(cb) {
   var repo = git(process.cwd())
-  repo.add('.', function() {
-    repo.commit(version + ' version', function() {})
-    exec('npm publish', function() {
-      console.log(version + ' version was published!')
+  repo.checkout('build', function() {
+    repo.reset('master', { hard: true }, function() {
+      cb()
     })
   })
-
 })
+
+gulp.task('move-to-master', function(cb) {
+  var repo = git(process.cwd())
+  repo.checkout('master', function() {
+    cb()
+  })
+})
+
+gulp.task('commit-and-publish', function(cb) {
+  var version = require('./package.json').version
+  var repo = git(process.cwd())
+
+  repo.add('./client/public', function() {
+    repo.commit(version + 'version build', function() {
+      exec('npm publish', function(err, stdout, stderr) {
+        console.log(stdout)
+        cb()
+      })
+    })
+  })
+})
+
+gulp.task('publish',
+  sequence(
+   'bump',
+   'move-to-build',
+   'build',
+   'commit-and-publish',
+   'move-to-master'
+  )
+)
 
